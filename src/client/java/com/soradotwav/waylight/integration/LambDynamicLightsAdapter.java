@@ -8,6 +8,7 @@ import com.soradotwav.waylight.render.LanternRigResolver;
 import dev.lambdaurora.lambdynlights.api.behavior.DynamicLightBehavior;
 import dev.lambdaurora.lambdynlights.api.behavior.DynamicLightBehaviorManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import org.joml.Vector3d;
@@ -17,7 +18,7 @@ public final class LambDynamicLightsAdapter {
     private static final int LUMINANCE = 15;
 
     private final WaylightLanternBehavior behavior;
-    private boolean registered;
+    private ClientLevel registeredLevel;
 
     public LambDynamicLightsAdapter(
             VirtualLanternController lanternController,
@@ -27,16 +28,22 @@ public final class LambDynamicLightsAdapter {
     }
 
     public void tick(Minecraft client) {
-        if (!registered) {
-            DynamicLightBehaviorManager behaviorManager = client.level != null ? getBehaviorManager() : null;
 
-            if (behaviorManager != null) {
-                behaviorManager.add(behavior);
-                registered = true;
-            }
+        if (registeredLevel != client.level) {
+            registeredLevel = null;
+            behavior.reset();
         }
 
         behavior.update(client);
+
+        if (client.level != null && registeredLevel == null) {
+            DynamicLightBehaviorManager behaviorManager = getBehaviorManager();
+
+            if (behaviorManager != null) {
+                behaviorManager.add(behavior);
+                registeredLevel = client.level;
+            }
+        }
     }
 
     private static DynamicLightBehaviorManager getBehaviorManager() {
@@ -62,7 +69,6 @@ public final class LambDynamicLightsAdapter {
 
         private int luminance;
         private int previousLuminance = -1;
-        private boolean removed;
 
         private WaylightLanternBehavior(
                 VirtualLanternController lanternController,
@@ -73,11 +79,17 @@ public final class LambDynamicLightsAdapter {
             this.rigResolver = rigResolver;
         }
 
+        void reset() {
+            position.zero();
+            previousPosition.set(Double.NaN, Double.NaN, Double.NaN);
+            luminance = 0;
+            previousLuminance = -1;
+        }
+
         void update(Minecraft client) {
             LocalPlayer player = client.player;
             if (player == null || client.level == null) {
                 luminance = 0;
-                removed = false;
                 return;
             }
 
@@ -124,11 +136,6 @@ public final class LambDynamicLightsAdapter {
             }
 
             return changed;
-        }
-
-        @Override
-        public boolean isRemoved() {
-            return removed;
         }
     }
 }
