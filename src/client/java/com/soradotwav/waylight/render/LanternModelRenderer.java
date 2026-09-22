@@ -7,9 +7,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Quaternionf;
 
 public final class LanternModelRenderer {
-    private LanternModelRenderer() {}
+    private LanternModelRenderer() {
+    }
 
-    public static void submit(PoseStack poses, SubmitNodeCollector collector, BlockState state, int light, int outline) {
+    public static void submit(PoseStack poses, SubmitNodeCollector collector, BlockState state, int light,
+            int outline) {
         //? if >=26.1 {
         /*var model = net.minecraft.client.Minecraft.getInstance().getModelManager().getBlockModelSet().get(state);
         var renderState = new net.minecraft.client.renderer.block.BlockModelRenderState();

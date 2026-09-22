@@ -54,7 +54,7 @@ dependencies {
 }
 
 tasks.named("check") {
-    dependsOn(tasks.named("spotlessCheck"))
+    dependsOn(":formatting:spotlessCheck")
 }
 
 tasks.processResources {

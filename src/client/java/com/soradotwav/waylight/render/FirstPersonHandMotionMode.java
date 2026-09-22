@@ -5,8 +5,7 @@ import net.minecraft.network.chat.Component;
 
 public enum FirstPersonHandMotionMode {
     @SerializedName("physics")
-    PHYSICS("waylight.config.value.first_person_hand_motion.physics"),
-    @SerializedName("static")
+    PHYSICS("waylight.config.value.first_person_hand_motion.physics"), @SerializedName("static")
     STATIC("waylight.config.value.first_person_hand_motion.static");
 
     private final String translationKey;

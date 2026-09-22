@@ -7,4 +7,5 @@ public record VirtualLanternState(
         boolean lightActive,
         boolean modelVisible,
         boolean temporarilySuppressed,
-        boolean underwaterExtinguished) {}
+        boolean underwaterExtinguished) {
+}

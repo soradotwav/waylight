@@ -22,3 +22,8 @@ stonecutter {
 }
 
 rootProject.name = "Waylight"
+
+// Format shared sources once, outside the generated Stonecutter targets.
+include(":formatting")
+project(":formatting").projectDir = file("src")
+project(":formatting").buildFileName = "../build.formatting.gradle.kts"

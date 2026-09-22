@@ -13,8 +13,8 @@ public final class WaylightRuntime {
     private final VirtualLanternController lanternController = new VirtualLanternController(configManager);
     private final LanternPoseController poseController = new LanternPoseController(configManager);
 
-    private final LambDynamicLightsAdapter dynamicLightsAdapter =
-            new LambDynamicLightsAdapter(lanternController, poseController, rigResolver);
+    private final LambDynamicLightsAdapter dynamicLightsAdapter = new LambDynamicLightsAdapter(lanternController,
+            poseController, rigResolver);
 
     public WaylightConfigManager configManager() {
         return configManager;

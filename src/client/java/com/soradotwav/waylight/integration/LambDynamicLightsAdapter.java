@@ -51,8 +51,8 @@ public final class LambDynamicLightsAdapter {
             Class<?> dynamicLightsClass = Class.forName("dev.lambdaurora.lambdynlights.LambDynLights");
             Object instance = dynamicLightsClass.getMethod("get").invoke(null);
 
-            return (DynamicLightBehaviorManager)
-                    dynamicLightsClass.getMethod("dynamicLightBehaviorManager").invoke(instance);
+            return (DynamicLightBehaviorManager) dynamicLightsClass.getMethod("dynamicLightBehaviorManager")
+                    .invoke(instance);
         } catch (ReflectiveOperationException exception) {
             Waylight.LOGGER.error("Failed to access LambDynamicLights behavior manager.", exception);
             return null;

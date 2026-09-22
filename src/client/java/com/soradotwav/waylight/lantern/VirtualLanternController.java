@@ -20,8 +20,8 @@ public final class VirtualLanternController {
 
     private final WaylightConfigManager configManager;
 
-    private VirtualLanternState currentState =
-            new VirtualLanternState(false, LanternType.NORMAL, LanternPosition.RIGHT_HIP, false, false, false, false);
+    private VirtualLanternState currentState = new VirtualLanternState(false, LanternType.NORMAL,
+            LanternPosition.RIGHT_HIP, false, false, false, false);
 
     public VirtualLanternController(WaylightConfigManager configManager) {
         this.configManager = configManager;
@@ -52,7 +52,8 @@ public final class VirtualLanternController {
         playLanternSound(player, config.enabled);
         sendOverlayMessage(
                 player,
-                Component.translatable(config.enabled ? "message.waylight.lantern_on" : "message.waylight.lantern_off"));
+                Component
+                        .translatable(config.enabled ? "message.waylight.lantern_on" : "message.waylight.lantern_off"));
     }
 
     private static void sendOverlayMessage(LocalPlayer player, Component message) {

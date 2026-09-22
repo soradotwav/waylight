@@ -146,11 +146,11 @@ public final class LanternRigResolver {
             float rotateZ,
             float emissionX,
             float emissionY,
-            float emissionZ) {}
+            float emissionZ) {
+    }
 
     public enum Attachment {
-        BODY,
-        LEFT_ARM
+        BODY, LEFT_ARM
     }
 
     public record Projection(
@@ -160,5 +160,6 @@ public final class LanternRigResolver {
             float rotateX,
             float rotateY,
             float rotateZ,
-            float scale) {}
+            float scale) {
+    }
 }

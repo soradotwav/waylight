@@ -149,8 +149,8 @@ public final class WaylightModMenuCompat implements ModMenuApi {
                                 config.firstPersonHandMotion,
                                 () -> configManager.get().firstPersonHandMotion,
                                 value -> configManager.update(cfg -> cfg.firstPersonHandMotion = value))
-                        .controller(option ->
-                                EnumControllerBuilder.create(option).enumClass(FirstPersonHandMotionMode.class))
+                        .controller(option -> EnumControllerBuilder.create(option)
+                                .enumClass(FirstPersonHandMotionMode.class))
                         .build())
                 .build();
     }

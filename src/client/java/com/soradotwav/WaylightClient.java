@@ -14,8 +14,8 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
 
 public class WaylightClient implements ClientModInitializer {
-    private static final KeyMapping.Category WAYLIGHT_KEY_CATEGORY =
-            KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Waylight.MOD_ID, "general"));
+    private static final KeyMapping.Category WAYLIGHT_KEY_CATEGORY = KeyMapping.Category
+            .register(Identifier.fromNamespaceAndPath(Waylight.MOD_ID, "general"));
 
     private static final WaylightRuntime RUNTIME = new WaylightRuntime();
 

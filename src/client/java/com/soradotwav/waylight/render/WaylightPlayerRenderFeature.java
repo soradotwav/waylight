@@ -32,8 +32,7 @@ public final class WaylightPlayerRenderFeature extends RenderLayer<AvatarRenderS
             return;
         }
 
-        VirtualLanternState lanternState =
-                WaylightClient.runtime().lanternController().getState();
+        VirtualLanternState lanternState = WaylightClient.runtime().lanternController().getState();
         if (!lanternState.modelVisible()) {
             return;
         }
@@ -42,12 +41,11 @@ public final class WaylightPlayerRenderFeature extends RenderLayer<AvatarRenderS
             return;
         }
 
-        BlockState lanternBlockState =
-                WaylightClient.runtime().rigResolver().lanternBlockState(lanternState.lanternType());
-        LanternPoseController.PoseState poseState =
-                WaylightClient.runtime().poseController().getPoseState();
-        LanternRigResolver.Transform transform =
-                WaylightClient.runtime().rigResolver().resolveThirdPerson(lanternState, poseState);
+        BlockState lanternBlockState = WaylightClient.runtime().rigResolver()
+                .lanternBlockState(lanternState.lanternType());
+        LanternPoseController.PoseState poseState = WaylightClient.runtime().poseController().getPoseState();
+        LanternRigResolver.Transform transform = WaylightClient.runtime().rigResolver().resolveThirdPerson(lanternState,
+                poseState);
 
         poseStack.pushPose();
         applyTransform(poseStack, transform);

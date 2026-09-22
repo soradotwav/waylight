@@ -43,16 +43,10 @@ abstract class ItemInHandRendererMixin {
         }
         int packedLight = playerRenderState.avatarRenderState.lightCoords;
     *///? } else {
-    //? if >=26.2 {
-    /*@Inject(method = "submitHandsWithItems", at = @At("TAIL"))
-    *///? } else {
-    @Inject(
-            method = "renderHandsWithItems",
-            at =
-                    @At(
-                            value = "INVOKE",
-                            target =
-                                    "Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;renderAllFeatures()V"))
+       //? if >=26.2 {
+       /*@Inject(method = "submitHandsWithItems", at = @At("TAIL"))
+       *///? } else {
+    @Inject(method = "renderHandsWithItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;renderAllFeatures()V"))
     //? }
     private void waylight$renderHandLantern(
             float tickDelta,
@@ -61,7 +55,7 @@ abstract class ItemInHandRendererMixin {
             LocalPlayer localPlayer,
             int packedLight,
             CallbackInfo ci) {
-    //? }
+        //? }
         VirtualLanternState state = WaylightClient.runtime().lanternController().getState();
         if (state.lanternPosition() != LanternPosition.LEFT_HAND
                 || !state.modelVisible()
@@ -70,8 +64,7 @@ abstract class ItemInHandRendererMixin {
         }
 
         LanternRigResolver rigResolver = WaylightClient.runtime().rigResolver();
-        LanternPoseController.PoseState poseState =
-                WaylightClient.runtime().poseController().getPoseState();
+        LanternPoseController.PoseState poseState = WaylightClient.runtime().poseController().getPoseState();
 
         BlockState lanternBlockState = rigResolver.lanternBlockState(state.lanternType());
         LanternRigResolver.Transform transform = rigResolver.resolveThirdPerson(state, poseState);
