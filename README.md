@@ -1,8 +1,10 @@
 ![Waylight Banner](assets/waylight-banner.png)
 
+![Fabric: 1.21.11–26.3](https://img.shields.io/badge/Fabric-1.21.11%E2%80%9326.3-DBB78A)
+
 **A client-side virtual lantern mod for Fabric**, giving your player configurable vanilla lantern carry visuals with localized dynamic light and no inventory item requirement.
 
-> Built for Minecraft `1.21.11`. Waylight is client-side only and does not modify server-side gameplay.
+> Waylight is client-side only and does not modify server-side gameplay.
 
 Waylight includes:
 
@@ -35,11 +37,17 @@ Config is saved at `config/waylight.json`.
 
 ### Requirements
 
-- Minecraft `1.21.11`
-- Java `21+`
-- Fabric Loader `>=0.18.4`
-- Fabric API
-- LambDynamicLights `>=4.9.1+1.21.11`
+Use the Waylight jar and dependency releases matching your Minecraft version.
+
+| Minecraft | Java | Fabric Loader | LambDynamicLights |
+| --- | --- | --- | --- |
+| 1.21.11 | 21+ | 0.18.4+ | 4.9.1+ for 1.21.11 |
+| 26.1–26.1.2 | 25+ | 0.18.4+ | 4.10.0+ for 26.1 |
+| 26.2 | 25+ | 0.19.5+ | 4.12.4+ for 26.2 |
+| 26.3 | 25+ | 0.19.5+ | 4.13.0+ for 26.3 |
+
+- Fabric API for your Minecraft version
+- YACL is bundled
 - Optional: Mod Menu
 
 ### Behavior Notes

@@ -3,7 +3,7 @@ import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.compile.JavaCompile
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap")
+    id("net.fabricmc.fabric-loom")
 }
 
 version = "${property("mod.version")}+${sc.current.version}"
@@ -31,26 +31,25 @@ loom {
 
     runConfigs.all {
         ideConfigGenerated(true)
-        runDir = "../../run"
+        runDir = "../../run/${sc.current.version}-fabric"
     }
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${sc.current.version}")
-    mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
+    implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric")}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric")}")
 
-    modImplementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}") {
+    implementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}") {
         exclude(group = "net.fabricmc.fabric-api", module = "fabric-api")
     }
     include("dev.isxander:yet-another-config-lib:${property("deps.yacl")}")
 
-    modCompileOnly("com.terraformersmc:modmenu:${property("deps.modmenu")}")
-    modRuntimeOnly("com.terraformersmc:modmenu:${property("deps.modmenu")}")
+    compileOnly("com.terraformersmc:modmenu:${property("deps.modmenu")}")
+    runtimeOnly("com.terraformersmc:modmenu:${property("deps.modmenu")}")
 
-    modImplementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${property("deps.lambdynamiclights")}")
+    implementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${property("deps.lambdynamiclights")}")
 }
 
 tasks.named("check") {
@@ -74,13 +73,20 @@ tasks.processResources {
     }
 }
 
+tasks.withType<ProcessResources>().configureEach {
+    filesMatching("waylight*.mixins.json") {
+        filter { it.replace("JAVA_21", "JAVA_25") }
+    }
+}
+
 tasks.withType<JavaCompile>().configureEach {
-    options.release.set(21)
+    options.release.set(25)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 tasks.named<Jar>("jar") {
@@ -91,7 +97,7 @@ tasks.named<Jar>("jar") {
 
 tasks.register<Copy>("buildAndCollect") {
     group = "build"
-    from(tasks.named("remapJar").map { (it as Jar).archiveFile })
+    from(tasks.named("jar").map { (it as Jar).archiveFile })
     into(rootProject.layout.buildDirectory.dir("libs/fabric"))
     dependsOn("build")
 }
