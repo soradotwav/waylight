@@ -5,8 +5,7 @@ import net.minecraft.network.chat.Component;
 
 public enum LanternType {
     @SerializedName("normal")
-    NORMAL("waylight.config.value.lantern.normal"),
-    @SerializedName("soul")
+    NORMAL("waylight.config.value.lantern.normal"), @SerializedName("soul")
     SOUL("waylight.config.value.lantern.soul");
 
     private final String translationKey;

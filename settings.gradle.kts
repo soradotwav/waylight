@@ -14,8 +14,16 @@ plugins {
 stonecutter {
     create(rootProject) {
         version("1.21.11-fabric", "1.21.11").buildscript("build.fabric.gradle.kts")
+        version("26.1-fabric", "26.1").buildscript("build.fabric-unobfuscated.gradle.kts")
+        version("26.2-fabric", "26.2").buildscript("build.fabric-unobfuscated.gradle.kts")
+        version("26.3-fabric", "26.3").buildscript("build.fabric-unobfuscated.gradle.kts")
         vcsVersion = "1.21.11-fabric"
     }
 }
 
 rootProject.name = "Waylight"
+
+// Format shared sources once, outside the generated Stonecutter targets.
+include(":formatting")
+project(":formatting").projectDir = file("src")
+project(":formatting").buildFileName = "../build.formatting.gradle.kts"

@@ -65,10 +65,10 @@ public final class LanternPoseController {
         lastYaw = player.getYRot();
 
         float yawRadians = (float) Math.toRadians(player.getYRot());
-        float forwardAcceleration =
-                (float) (-Math.sin(yawRadians) * accelerationX + Math.cos(yawRadians) * accelerationZ);
-        float sidewaysAcceleration =
-                (float) (Math.cos(yawRadians) * accelerationX + Math.sin(yawRadians) * accelerationZ);
+        float forwardAcceleration = (float) (-Math.sin(yawRadians) * accelerationX
+                + Math.cos(yawRadians) * accelerationZ);
+        float sidewaysAcceleration = (float) (Math.cos(yawRadians) * accelerationX
+                + Math.sin(yawRadians) * accelerationZ);
 
         float targetBob = (float) Math.sin(player.tickCount * 0.22F)
                 * Mth.clamp((float) horizontalSpeed * 8.0F, 0.0F, 1.3F)
@@ -76,8 +76,9 @@ public final class LanternPoseController {
 
         float motionIntensity = Mth.clamp(configManager.get().motionIntensity / 100.0F, 0.25F, 2.0F);
 
-        float motionMultiplier =
-                sprinting ? BASE.sprintMotionMultiplier() : crouching ? BASE.crouchMotionMultiplier() : 1.0F;
+        float motionMultiplier = sprinting
+                ? BASE.sprintMotionMultiplier()
+                : crouching ? BASE.crouchMotionMultiplier() : 1.0F;
 
         if (!onGround) {
             motionMultiplier *= BASE.airMotionMultiplier();
@@ -91,21 +92,21 @@ public final class LanternPoseController {
         float fallPitchTarget = 0.0F;
         if (!onGround && velocity.y < -0.08) {
             fallPitchTarget = -Mth.clamp(
-                            (float) (-velocity.y)
-                                    * BASE.fallPitchBiasScale()
-                                    * motionIntensity
-                                    * carryProfile.modeMotionScale(),
-                            0.0F,
-                            BASE.maxFallPitchTarget())
+                    (float) (-velocity.y)
+                            * BASE.fallPitchBiasScale()
+                            * motionIntensity
+                            * carryProfile.modeMotionScale(),
+                    0.0F,
+                    BASE.maxFallPitchTarget())
                     * carryProfile.fallScale();
         }
 
         poseState.pitchVelocity += ((-forwardAcceleration * BASE.pitchAccelerationScale())
-                        + ((float) accelerationY * -14.0F))
+                + ((float) accelerationY * -14.0F))
                 * motionMultiplier;
 
         poseState.rollVelocity += ((sidewaysAcceleration * BASE.rollAccelerationScale())
-                        - (yawDelta * BASE.turnScale()))
+                - (yawDelta * BASE.turnScale()))
                 * motionMultiplier;
 
         poseState.pitchVelocity += (fallPitchTarget - poseState.pitchAngle) * BASE.fallPitchStiffness();
@@ -135,16 +136,16 @@ public final class LanternPoseController {
         poseState.rollVelocity *= rollDamping;
 
         poseState.pitchAngle = Mth.clamp(
-                        poseState.pitchAngle + poseState.pitchVelocity, -BASE.maxPitch(), BASE.maxPitch())
+                poseState.pitchAngle + poseState.pitchVelocity, -BASE.maxPitch(), BASE.maxPitch())
                 * carryProfile.motionScale();
 
         poseState.rollAngle = Mth.clamp(poseState.rollAngle + poseState.rollVelocity, -BASE.maxRoll(), BASE.maxRoll())
                 * carryProfile.motionScale();
 
         poseState.yawLag = Mth.clamp(
-                        (poseState.yawLag + yawDelta * 0.18F) * BASE.yawLagDamping(),
-                        -BASE.maxYawLag(),
-                        BASE.maxYawLag())
+                (poseState.yawLag + yawDelta * 0.18F) * BASE.yawLagDamping(),
+                -BASE.maxYawLag(),
+                BASE.maxYawLag())
                 * carryProfile.yawScale();
 
         poseState.bob = Mth.lerp(0.22F, poseState.bob, targetBob) * carryProfile.bobScale();
@@ -232,8 +233,10 @@ public final class LanternPoseController {
             float airMotionMultiplier,
             float landingPitchImpulseScale,
             float maxLandingPitchImpulse,
-            float landingRollDamping) {}
+            float landingRollDamping) {
+    }
 
     private record CarryProfile(
-            float modeMotionScale, float motionScale, float fallScale, float yawScale, float bobScale) {}
+            float modeMotionScale, float motionScale, float fallScale, float yawScale, float bobScale) {
+    }
 }

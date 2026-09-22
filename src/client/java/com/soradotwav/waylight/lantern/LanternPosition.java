@@ -5,10 +5,8 @@ import net.minecraft.network.chat.Component;
 
 public enum LanternPosition {
     @SerializedName("right_hip")
-    RIGHT_HIP("waylight.config.value.position.right_hip"),
-    @SerializedName("left_hip")
-    LEFT_HIP("waylight.config.value.position.left_hip"),
-    @SerializedName("left_hand")
+    RIGHT_HIP("waylight.config.value.position.right_hip"), @SerializedName("left_hip")
+    LEFT_HIP("waylight.config.value.position.left_hip"), @SerializedName("left_hand")
     LEFT_HAND("waylight.config.value.position.left_hand");
 
     private final String translationKey;

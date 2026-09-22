@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -33,8 +32,7 @@ public final class WaylightPlayerRenderFeature extends RenderLayer<AvatarRenderS
             return;
         }
 
-        VirtualLanternState lanternState =
-                WaylightClient.runtime().lanternController().getState();
+        VirtualLanternState lanternState = WaylightClient.runtime().lanternController().getState();
         if (!lanternState.modelVisible()) {
             return;
         }
@@ -43,12 +41,11 @@ public final class WaylightPlayerRenderFeature extends RenderLayer<AvatarRenderS
             return;
         }
 
-        BlockState lanternBlockState =
-                WaylightClient.runtime().rigResolver().lanternBlockState(lanternState.lanternType());
-        LanternPoseController.PoseState poseState =
-                WaylightClient.runtime().poseController().getPoseState();
-        LanternRigResolver.Transform transform =
-                WaylightClient.runtime().rigResolver().resolveThirdPerson(lanternState, poseState);
+        BlockState lanternBlockState = WaylightClient.runtime().rigResolver()
+                .lanternBlockState(lanternState.lanternType());
+        LanternPoseController.PoseState poseState = WaylightClient.runtime().poseController().getPoseState();
+        LanternRigResolver.Transform transform = WaylightClient.runtime().rigResolver().resolveThirdPerson(lanternState,
+                poseState);
 
         poseStack.pushPose();
         applyTransform(poseStack, transform);
@@ -60,8 +57,8 @@ public final class WaylightPlayerRenderFeature extends RenderLayer<AvatarRenderS
         poseStack.scale(0.46F, 0.46F, 0.46F);
         poseStack.translate(-0.5F, -0.65F, -0.5F);
 
-        submitNodeCollector.submitBlock(
-                poseStack, lanternBlockState, packedLight, OverlayTexture.NO_OVERLAY, avatarRenderState.outlineColor);
+        LanternModelRenderer.submit(
+                poseStack, submitNodeCollector, lanternBlockState, packedLight, avatarRenderState.outlineColor);
 
         poseStack.popPose();
     }
@@ -74,9 +71,9 @@ public final class WaylightPlayerRenderFeature extends RenderLayer<AvatarRenderS
         }
 
         poseStack.translate(transform.translateX(), transform.translateY(), transform.translateZ());
-        poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(transform.rotateZ()));
-        poseStack.mulPose(com.mojang.math.Axis.XP.rotationDegrees(transform.rotateX()));
-        poseStack.mulPose(com.mojang.math.Axis.YP.rotationDegrees(transform.rotateY()));
+        LanternModelRenderer.rotate(poseStack, com.mojang.math.Axis.ZP.rotationDegrees(transform.rotateZ()));
+        LanternModelRenderer.rotate(poseStack, com.mojang.math.Axis.XP.rotationDegrees(transform.rotateX()));
+        LanternModelRenderer.rotate(poseStack, com.mojang.math.Axis.YP.rotationDegrees(transform.rotateY()));
     }
 
     private static void submitAnchorGizmo(SubmitNodeCollector submitNodeCollector, PoseStack poseStack) {

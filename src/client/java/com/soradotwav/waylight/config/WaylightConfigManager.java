@@ -18,8 +18,7 @@ import net.minecraft.util.Mth;
 
 public final class WaylightConfigManager {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path CONFIG_PATH =
-            FabricLoader.getInstance().getConfigDir().resolve("waylight.json");
+    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("waylight.json");
 
     private WaylightConfig config = new WaylightConfig();
 

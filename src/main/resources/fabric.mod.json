@@ -33,11 +33,12 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": "~1.21.11",
-		"java": ">=21",
+		"fabricloader": ">=${target_fabricloader}",
+		"minecraft": "${target_minecraft}",
+		"java": ">=${target_java}",
 		"fabric-api": "*",
-		"lambdynlights": ">=4.9.1+1.21.11"
+		"yet_another_config_lib_v3": ">=${target_yacl}",
+		"lambdynlights": ">=${target_lambdynamiclights}"
 	},
 	"suggests": {
 		"modmenu": "*"

@@ -20,8 +20,8 @@ public final class VirtualLanternController {
 
     private final WaylightConfigManager configManager;
 
-    private VirtualLanternState currentState =
-            new VirtualLanternState(false, LanternType.NORMAL, LanternPosition.RIGHT_HIP, false, false, false, false);
+    private VirtualLanternState currentState = new VirtualLanternState(false, LanternType.NORMAL,
+            LanternPosition.RIGHT_HIP, false, false, false, false);
 
     public VirtualLanternController(WaylightConfigManager configManager) {
         this.configManager = configManager;
@@ -37,12 +37,12 @@ public final class VirtualLanternController {
         int localBrightness = client.level.getMaxLocalRawBrightness(player.blockPosition());
 
         if (!config.enabled && config.autoUnequipInBrightness && localBrightness > config.autoLightThreshold) {
-            player.displayClientMessage(Component.translatable("message.waylight.too_bright"), true);
+            sendOverlayMessage(player, Component.translatable("message.waylight.too_bright"));
             return;
         }
 
         if (config.enabled && config.autoEquipInDarkness && localBrightness <= config.autoLightThreshold) {
-            player.displayClientMessage(Component.translatable("message.waylight.too_dark"), true);
+            sendOverlayMessage(player, Component.translatable("message.waylight.too_dark"));
             return;
         }
 
@@ -50,9 +50,18 @@ public final class VirtualLanternController {
         configManager.save();
 
         playLanternSound(player, config.enabled);
-        player.displayClientMessage(
-                Component.translatable(config.enabled ? "message.waylight.lantern_on" : "message.waylight.lantern_off"),
-                true);
+        sendOverlayMessage(
+                player,
+                Component
+                        .translatable(config.enabled ? "message.waylight.lantern_on" : "message.waylight.lantern_off"));
+    }
+
+    private static void sendOverlayMessage(LocalPlayer player, Component message) {
+        //? if >=26.1 {
+        /*player.sendOverlayMessage(message);
+        *///? } else {
+        player.displayClientMessage(message, true);
+        //? }
     }
 
     public void tick(Minecraft client) {
